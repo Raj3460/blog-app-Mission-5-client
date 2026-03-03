@@ -8,7 +8,7 @@ export default function CommonLayout({ children }: Readonly<{
     
       <div>
         <Navbar />
-      <h1> this is the common layout</h1>
+      {/* <h1> this is the common layout</h1> */}
       {children}
 
       </div>

@@ -1,20 +1,31 @@
-import { Button } from "@/components/ui/button";
-// import { authClient } from "@/lib/auth-client";
-import { userService } from "@/service/user.service";
+import BlogCard from "@/components/modules/homepage/blogPostCard";
+import { blogService } from "@/service/blog.service";
+import { BlogPost } from "@/types";
 // import { cookies, headers } from "next/headers";
 
 export default async function Home() {
-  
-  const {data } = await userService.getSession();
+  //* for chacke the session
+  // const {data } = await userService.getSession();
 
-  console.log(data);
+  //* for chcke the get all post
+  const { data } = await blogService.getBlogPost({
+    isFeatured : false,
+    // search : "hh",
+  } , 
+  {
+   cache : "no-store"
 
+  }
 
+);
+
+  // console.log(data);
 
   return (
-    <div className="flex min-h-svh w-full flex-col items-center justify-center p-6 md:p-10">
-      <Button variant="outline">Button</Button>
-      <h1 className="text-3xl font-bold">Welcome to the Blog Site</h1>
+    <div className="grid grid-cols-3 mx-auto px-4 max-w-7xl gap-5">
+      {data?.data?.map((post: BlogPost) => (
+        <BlogCard key={post.id} post={post}></BlogCard>
+      ))}
     </div>
   );
 }
